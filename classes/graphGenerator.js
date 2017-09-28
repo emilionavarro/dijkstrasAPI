@@ -1,9 +1,7 @@
 var Graph = require('./graph.js');
 var GraphNode = require('./node.js');
 var GraphEdge = require('./edge.js');
-var idGenerator = require('./idGenerator.js');
-
-var idGenerator = new idGenerator();
+var Generator = require('./idGenerator.js');
 
 class GraphGenerator {
     constructor(nodeCount) {
@@ -14,7 +12,8 @@ class GraphGenerator {
     generate(nodeCount) {
         var maxEdges = Math.floor(nodeCount * (((nodeCount / 2) - .5) / 2));
         var edgeCount = void 0;
-        
+        var idGenerator = new Generator();
+
         //create node collection
         for(var i = 0; i < nodeCount; i++) {
             this.graph.nodes.push(GraphNode.prototype.createBlankNode(idGenerator));

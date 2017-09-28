@@ -22,9 +22,15 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-router.get('/generate', function (req, res) {
-    var x = new graphGenerator(5);
-    res.json(x.graph);
+router.get('/generate/:nodeCount', function (req, res) {
+    var nodeCount = 5;
+
+    if (req.params.nodeCount !== null) {
+        nodeCount = parseInt(req.params.nodeCount);    
+    }
+
+    var generator = new graphGenerator(nodeCount);
+    res.json(generator.graph);
 });
 
 // more routes for our API will happen here
