@@ -4,7 +4,8 @@ var bodyParser = require('body-parser');
 var graph = require('./classes/graph.js');
 var idGenerator = require('./classes/idGenerator.js');
 var graphGenerator = require('./classes/graphGenerator.js');
- 
+var Dijkstra = require('./classes/Dijkstra.js');
+
 var idGenerator = new idGenerator();
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -31,6 +32,20 @@ router.get('/generate/:nodeCount', function (req, res) {
 
     var generator = new graphGenerator(nodeCount);
     res.json(generator.graph);
+});
+
+router.post('/solve/:startNodeId', function (req, res) {
+    var startNodeId = 1;
+
+    if (req.params.startNodeId !== null) {
+        startNodeId = parseInt(req.params.startNodeId);    
+    }
+    if (req.body && (!req.body.edges || !req.body.nodes)) {
+        res.json( {message: "Nodes and Edges are required!"} );
+    } else {
+        var solution = new Dijkstra(startNodeId, req.body);
+        res.json(solution.graph);
+    }
 });
 
 // more routes for our API will happen here

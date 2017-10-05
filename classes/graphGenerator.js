@@ -35,7 +35,7 @@ class GraphGenerator {
 
             if (source !== target) {
                 for(var edge in this.graph.edges) {
-                    neighbor = this.graph.edges[edge].getNeighbor(this.graph.nodes[source]);
+                    neighbor = this.graph.edges[edge].GetNeighbor(this.graph.nodes[source]);
 
                     if (neighbor !== null && neighbor.id === this.graph.nodes[target].id) {
                         goodToAdd = false;
